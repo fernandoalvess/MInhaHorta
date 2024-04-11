@@ -8,7 +8,6 @@ typedef struct
 {
     char nome[MAX_NOME];
     int quantidade;
-    int test;
 } Pedido;
 
 typedef struct
