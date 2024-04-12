@@ -309,7 +309,6 @@ void carrinho(Pedido produtos[], int numProdutos)
     printf("---------------------------------------------------\n");
 }
 
-
 void finalizarPedido()
 {
     char formaPagamento;
@@ -322,7 +321,7 @@ void finalizarPedido()
         scanf(" %c", &formaPagamento);
     }
     system("cls");
-    
+
     if (formaPagamento == 'P')
     {
         printf("Voce selecionou Pix como forma de pagamento.\n");
