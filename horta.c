@@ -129,7 +129,7 @@ void adicionarItem(Pedido produto[], int *numProdutos)
         return;
     }
 
-    fprintf(arquivo, "QTD: %d | NOME: %s\n", produto[*numProdutos].quantidade, produto[*numProdutos].nome);
+    fprintf(arquivo, "%d %s\n", produto[*numProdutos].quantidade, produto[*numProdutos].nome);
     fclose(arquivo);
 
     (*numProdutos)++;
@@ -161,7 +161,7 @@ void editarItem(Pedido produto[], int numProduto)
             printf("Produto editado com sucesso!\n");
             produtoEncontrado = 1;
         }
-        fprintf(arquivo, "QTD: %d | NOME: %s\n", produto[i].quantidade, produto[i].nome);
+        fprintf(arquivo, "%d %s\n", produto[i].quantidade, produto[i].nome);
     }
 
     fclose(arquivo);
@@ -203,7 +203,7 @@ void excluirItem(Pedido produto[], int *numProdutos)
             produtoEncontrado = 1;
             continue;
         }
-        fprintf(temp, "QTD: %d | NOME: %s\n", produto[i].quantidade, produto[i].nome);
+        fprintf(temp, "%d %s\n", produto[i].quantidade, produto[i].nome);
     }
 
     if (!produtoEncontrado)
@@ -270,7 +270,7 @@ void catalogoItens()
     }
 }
 
-void carrinho()
+void carrinho(Pedido produtos[], int numProdutos)
 {
     FILE *arquivo = fopen("pedido.txt", "r");
     if (arquivo == NULL)
@@ -279,16 +279,27 @@ void carrinho()
         return;
     }
 
+    // Lê os produtos do arquivo e armazena-os em um array
+    int i = 0;
+    while (fscanf(arquivo, "%d %s", &produtos[i].quantidade, produtos[i].nome) == 2 && i < numProdutos)
+    {
+        i++;
+    }
+    fclose(arquivo);
+
+    // Ordena os produtos pelo nome
+    ordenarCarrinho(produtos, numProdutos);
+
+    // Exibe o carrinho de compras
     printf("Carrinho de Compras:\n");
     printf("---------------------------------------------------\n");
     printf("  %-20s | %-10s\n", "Nome do Produto", "Quantidade");
     printf("---------------------------------------------------\n");
 
-    Pedido produto;
     int itensNoCarrinho = 0;
-    while (fscanf(arquivo, "QTD: %d | NOME: %s\n", &produto.quantidade, produto.nome) == 2)
+    for (int j = 0; j < numProdutos; j++)
     {
-        printf("  %-20s | %-10d\n", produto.nome, produto.quantidade);
+        printf("  %-20s | %-10d\n", produtos[j].nome, produtos[j].quantidade);
         itensNoCarrinho++;
     }
 
@@ -298,9 +309,8 @@ void carrinho()
     }
 
     printf("---------------------------------------------------\n");
-
-    fclose(arquivo);
 }
+
 
 void finalizarPedido()
 {
@@ -340,4 +350,18 @@ void finalizarPedido()
     printf("\n");
     system("pause");
     system("cls");
+}
+
+// Função de comparação para a ordenação dos itens do carrinho pelo nome
+int compararNomes(const void *a, const void *b)
+{
+    const Pedido *pedidoA = (const Pedido *)a;
+    const Pedido *pedidoB = (const Pedido *)b;
+    return strcmp(pedidoA->nome, pedidoB->nome);
+}
+
+// Função para ordenar os itens do carrinho
+void ordenarCarrinho(Pedido produtos[], int numProdutos)
+{
+    qsort(produtos, numProdutos, sizeof(Pedido), compararNomes);
 }

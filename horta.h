@@ -31,5 +31,7 @@ void adicionarItem(Pedido produto[], int *numProdutos);
 void editarItem(Pedido produto[], int numProduto);
 void excluirItem(Pedido produto[], int *numProdutos);
 void catalogoItens();
-void carrinho();
+void carrinho(Pedido produtos[], int numProdutos);
 void finalizarPedido();
+int compararNomes(const void *a, const void *b);
+void ordenarCarrinho(Pedido produtos[], int numProdutos);

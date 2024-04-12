@@ -62,7 +62,7 @@ int main()
                         break;
                     case 3:
                         system("cls");
-                        carrinho();
+                        carrinho(produtos, numProdutos);
                         system("pause");
                         break;
                     case 4:
