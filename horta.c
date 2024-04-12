@@ -22,7 +22,7 @@ int login(Usuario clientes[], int numClientes)
         }
     }
 
-    return -1; // se não encontrar um cliente com o login e senha informados
+    return -1; // se nao encontrar um cliente com o login e senha informados
 }
 
 int verificarEmail(Usuario clientes[], int numClientes, const char email[])
@@ -287,10 +287,8 @@ void carrinho(Pedido produtos[], int numProdutos)
     }
     fclose(arquivo);
 
-    // Ordena os produtos pelo nome
     ordenarCarrinho(produtos, numProdutos);
 
-    // Exibe o carrinho de compras
     printf("Carrinho de Compras:\n");
     printf("---------------------------------------------------\n");
     printf("  %-20s | %-10s\n", "Nome do Produto", "Quantidade");
@@ -335,7 +333,7 @@ void finalizarPedido()
     }
 
     // Exclui todos os dados do arquivo "pedido.txt"
-    FILE *arquivo = fopen("pedido.txt", "w"); // Abrir o arquivo no modo de escrita, o que limpa seu conteúdo
+    FILE *arquivo = fopen("pedido.txt", "w"); // Abrir o arquivo no modo de escrita, o que limpa seu conteudo
     if (arquivo == NULL)
     {
         printf("ERRO AO ABRIR ARQUIVO!\n");
@@ -352,7 +350,7 @@ void finalizarPedido()
     system("cls");
 }
 
-// Função de comparação para a ordenação dos itens do carrinho pelo nome
+// Funcao de comparacao para a ordenacao dos itens do carrinho pelo nome
 int compararNomes(const void *a, const void *b)
 {
     const Pedido *pedidoA = (const Pedido *)a;
@@ -360,7 +358,7 @@ int compararNomes(const void *a, const void *b)
     return strcmp(pedidoA->nome, pedidoB->nome);
 }
 
-// Função para ordenar os itens do carrinho
+// Funcao para ordenar os itens do carrinho
 void ordenarCarrinho(Pedido produtos[], int numProdutos)
 {
     qsort(produtos, numProdutos, sizeof(Pedido), compararNomes);
